@@ -4,9 +4,32 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {},
+  strict: true, //本番環境では無効化する
+  state: {
+    books: [
+      isbn: "928-4343-363-2",
+      title: "作って楽しむプログラミング",
+      price: 2000
+    ]
+  },
+  getters: {
+    booksCount(state) {
+      return state.books.length
+    },
+    getBooksByPrice(state) {
+      return price => {
+        return state.books.filter(book => book.price < price)
+      }
+    }
+  },
+  mutations: {
+    minus(state) {
+      state.count--;
+    },
+    plus(state) {
+      state.count++;
+    },
+  },
   actions: {},
   modules: {},
 });
