@@ -1,30 +1,26 @@
 <template>
   <div>
-    <form @submit.prevent="onclick">
-      <label for="isbn">ISBN:</label>
-      <input type="text" id="isbn" v-model="isbn" /><br />
-      <label for="title">署名:</label>
-      <input type="text" id="title" v-model="title" /><br />
-      <label for="price">価格:</label>
-      <input type="number" id="price" v-model="price" /><br />
+    <form @submit.prevent="onclick()">
+      <label for="name">氏名: </label>
+      <input type="text" id="name" v-model="name" />
       <input type="submit" value="登録" />
     </form>
-    <hr />
-    <p>書籍は全部で{{ booksCount }}冊</p>
-    <ul v-for="b of getBooksByPrice(2500)" :key="b.isbn">
-      <li>
-        {{ b.title }} ({{ b.price }}円) <br />
-        ISBN: {{ b.isbn }}
-      </li>
-    </ul>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   name: "app",
-  computed: mapGetters(["booksCount", "getBooksByPrice"]),
+  computed: {
+    name: {
+      get() {
+        return this.$store.state.name;
+      },
+      set(value) {
+        this.$store.commit("updateName", value);
+      },
+    },
+  },
   data() {
     return {
       isbn: "",
@@ -34,8 +30,7 @@ export default {
   },
   methods: {
     onclick() {
-      this.$store.commit({
-        type: "addBook",
+      this.$store.dispatch("addAsync", {
         book: {
           isbn: this.isbn,
           title: this.title,
