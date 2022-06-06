@@ -1,4 +1,6 @@
 # vuex-basic
+vuexの勉強
+(これからはじめるVue.js実践入門より)
 
 ## Project setup
 ```
