@@ -7,20 +7,32 @@ export default new Vuex.Store({
   strict: true, //本番環境では無効化する
   state: {
     books: [
-      isbn: "928-4343-363-2",
-      title: "作って楽しむプログラミング",
-      price: 2000
-    ]
+      {
+        isbn: "928-4343-363-2",
+        title: "作って楽しむプログラミング",
+        price: 2000,
+      },
+      {
+        isbn: "928-43423-363-2",
+        title: "作って楽しむプログラミング",
+        price: 1000,
+      },
+      {
+        isbn: "928-43343-363-2",
+        title: "作って楽しむプログラミング",
+        price: 2700,
+      },
+    ],
   },
   getters: {
     booksCount(state) {
-      return state.books.length
+      return state.books.length;
     },
     getBooksByPrice(state) {
-      return price => {
-        return state.books.filter(book => book.price < price)
-      }
-    }
+      return (price) => {
+        return state.books.filter((book) => book.price < price);
+      };
+    },
   },
   mutations: {
     minus(state) {
@@ -28,6 +40,9 @@ export default new Vuex.Store({
     },
     plus(state) {
       state.count++;
+    },
+    addBook(state, payload) {
+      state.books.push(payload.book);
     },
   },
   actions: {},
