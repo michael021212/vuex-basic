@@ -34,7 +34,8 @@ export default {
   },
   methods: {
     onclick() {
-      this.$store.commit("addBook", {
+      this.$store.commit({
+        type: "addBook",
         book: {
           isbn: this.isbn,
           title: this.title,
